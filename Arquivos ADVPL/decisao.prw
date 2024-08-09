@@ -7,7 +7,7 @@ User Function DECISAO()
     Local nCount := 0
     Local lContinua := .T.
     Local aArray    := {0, 0, 0}
-    Local aArray2   := {0}
+    Local aArray2   := {} //COMO NÃO VAI SER UNIDIMENSIONAL, NÃO PODE INICIAR COM O ZERO
 
     While nCount <= 10
         aArray[1] := nCount
@@ -22,8 +22,27 @@ User Function DECISAO()
         nCount ++
     End
 
+// FUNCIONA QUANDO O ARRAY É UNIDIMENSIONAL
+    // For nNumero := 1 to 10 step 1
+    //     Aadd(aArray2, nNumero)
+    //     Do case
+    //         CASE nNumero == 7
+    //             Exit
+    //         OTHERWISE
+    //             Loop
+    //     Endcase
+    // Next
+
+    // For xx := 1 to Len(aArray2) 
+    //     If aArray2[xx] == 4
+    //         Adel(aArray2, xx)
+    //         Asize(aArray2, 6)
+    //     EndIf
+    // Next
+
+// FUNCIONA QUANDO O ARRAY É MULTIDIMENSIONAL
     For nNumero := 1 to 10 step 1
-        Aadd(aArray2, nNumero)
+        Aadd(aArray2, {nNumero}) //ADICIONA UMA NOVA DIMENSÃO NO ARRAY
         Do case
             CASE nNumero == 7
                 Exit
@@ -32,9 +51,8 @@ User Function DECISAO()
         Endcase
     Next
 
-    For xx := 1 to Len(aArray2) 
-        If aArray2[xx] == 4
-            Adel(aArray2, xx)
-            Asize(aArray2, 6)
-        EndIf
+    nTamanho := Len(aArray2) - 1 //MENOS UM POIS SERÁ REMOVIDO UM ELEMENTO DO ARRAY
+    nPos := Ascan(aArray2, { | x | x[1] == 4})
+    Adel(aArray2, nPos)
+    Asize(aArray2, nTamanho)
 Return
